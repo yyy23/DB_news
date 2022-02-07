@@ -52,7 +52,7 @@ if($is_sent === true) {
     $sql_set -> execute();
 
 
-    $sql_set = $pdo -> prepare("SELECT title, article FROM posts ORDER BY id DESC");
+    $sql_set = $pdo -> prepare("SELECT title, article FROM posts ORDER BY id DESC");  //デーブル:postsからidを降順して、title,articleを取得
 
     $sql_set -> bindValue(':title', $sql_title, 2);  //第3引数"2"はinteger型のPDO::PARAM_STRを表す
     $sql_set -> bindValue(':article', $sql_article, 2);
