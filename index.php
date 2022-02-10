@@ -5,7 +5,6 @@
 // ini_set('error_reporting', E_ALL);
 
 
-
 //変数の定義
 $is_title = isset($_POST["title"]); //$_POST["title"]が未定義もしくはnullの場合、$is_titleにfalseが格納される・違う場合はtrueが格納される
 if($is_title === true) { //$is_titleがtrueだったらifの処理、falseだったらelseの処理
@@ -17,7 +16,7 @@ if($is_title === true) { //$is_titleがtrueだったらifの処理、falseだっ
 
 $is_article = isset($_POST["article"]);  //$_POST["article"]が未定義もしくはnullの場合、$is_articleにfalseが格納される・違う場合はtrueが格納される
 if($is_article === true) {  //$is_articleがtrueだったらifの処理、falseだったらelseの処理
-  $article = trim($_POST["article"]); //$_POST["article"]が両端のスペースを消して$articleに格納される
+  $article = trim($_POST["article"]); //$_POST["article"]が両端のスペースを消して(trim)$articleに格納される
 }else {
   $article = "";  //$articleに空文字が格納される 
 }
@@ -106,10 +105,8 @@ if($is_sent === true) {
     <?php 
     $i =  $i + 1 ;//$iは$iに１プラスする
     }
-    ?>  
-  <?php  $pdo = null; ?>  <!-- データベースを閉じる -->
-
-  <a href="http://localhost/comment">記事全文・コメントを読む</a>  <!--コメントページへのリンク作成 -->  
+    ?>
+<a href="http://localhost/comment">記事全文・コメントを読む</a>  <!--コメントページへのリンク作成 -->  
   <hr>
 </body>
 </html>
