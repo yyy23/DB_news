@@ -30,28 +30,28 @@ $sql_set = null;
 
 
 //データベースに接続する処理（使用するDBのドライバー、DB名、ホスト名、ユーザー名、パスワード）
-    $pdo = new PDO('mysql:dbname=board;host=localhost', 'root', 'root');
-    $pdo -> query('SET NAMES utf8;');  //文字化けを防ぐための処理
+  $pdo = new PDO('mysql:dbname=board;host=localhost', 'root', 'root');
+  $pdo -> query('SET NAMES utf8;');  //文字化けを防ぐための処理
 
 $is_sent = isset($_POST["send_submit"]);  //$_POST["send_submit"]が未定義もしくはnullの場合、・違う場合はtrueが格納される
 if($is_sent === true) { 
 
-    //SQLの作成  
-    $sql_set = $pdo -> prepare("INSERT INTO posts (title, article)  
-    VALUES( :title, :article)");  // テーブル:postsに投稿内容(title,article)を登録する
+    // prepareでSQL文の用意 
+    $sql_set = $pdo -> prepare("INSERT INTO posts (title, article)   
+    VALUES( :title, :article)");    //テーブル:postsの投稿内容(titleにtitle, articleにarticle)を登録
 
     $sql_title = $_POST["title"];  //$sql_title に $_POST["title"]を格納する
     $sql_article = $_POST["article"];  //$sql_article に $_POST["article"]を格納する
 
     //クエリの値の設定
-    $sql_set -> bindValue(':title', $sql_title, 2);  //第3引数"2"はinteger型のPDO::PARAM_STRを表す
-    $sql_set -> bindValue(':article', $sql_article, 2);
+    $sql_set -> bindValue(':title', $sql_title, 2);  //bindValueで値を変換  titleに＄sql_titleを代入、第3引数"2"はinteger型のPDO::PARAM_STRを表す
+    $sql_set -> bindValue(':article', $sql_article, 2);//bindValueで値を変換 articleに＄sql_articleを代入、第3引数"2"はinteger型のPDO::PARAM_STRを表す
     
     //クエリの実行
     $sql_set -> execute();
 
-
-    $sql_set = $pdo -> prepare("SELECT title, article FROM posts ORDER BY id DESC");  //デーブル:postsからidを降順して、title,articleを取得
+    //prepareでSQL文の用意
+    $sql_set = $pdo -> prepare("SELECT title, article FROM posts ORDER BY id DESC");  //テーブル:postsのid列を降順でソートをかけ、title,articleを取得
 
     $sql_set -> bindValue(':title', $sql_title, 2);  //第3引数"2"はinteger型のPDO::PARAM_STRを表す
     $sql_set -> bindValue(':article', $sql_article, 2);
@@ -59,7 +59,7 @@ if($is_sent === true) {
    //クエリの実行
     $sql_set -> execute();
 
-    $ary_item = $sql_set -> fetchAll(PDO::FETCH_ASSOC);  //$sql_setの結果セットを$ary_itemに配列で格納
+    $ary_item = $sql_set -> fetchAll(PDO::FETCH_ASSOC);  //fetchALLで$sql_setの結果を全件配列で取得し、$ary_itemに格納
    
 }    
 ?>
@@ -106,7 +106,7 @@ if($is_sent === true) {
     $i =  $i + 1 ;//$iは$iに１プラスする
     }
     ?>
-<a href="http://localhost/comment">記事全文・コメントを読む</a>  <!--コメントページへのリンク作成 -->  
+  <a href="http://localhost/comment">記事全文・コメントを読む</a>  <!--コメントページへのリンク作成 -->  
   <hr>
 </body>
 </html>
